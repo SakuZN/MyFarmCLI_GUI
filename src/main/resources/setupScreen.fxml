@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="480.0" prefWidth="854.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controllers.setupScreenController">
+   <children>
+      <Button fx:id="startButton" layoutX="354.0" layoutY="353.0" mnemonicParsing="false" onAction="#onAction" prefHeight="74.0" prefWidth="169.0" text="Start Game!">
+         <font>
+            <Font name="Gabriola" size="30.0" />
+         </font></Button>
+      <Text fontSmoothingType="LCD" layoutX="133.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Harvest Sun (MyFarm Sim Game)!">
+         <font>
+            <Font name="Gabriola" size="41.0" />
+         </font>
+      </Text>
+      <Text layoutX="14.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your Farmer name:" wrappingWidth="425.2664794921875">
+         <font>
+            <Font name="Gabriola" size="43.0" />
+         </font>
+      </Text>
+      <TextField fx:id="farmerNamePrompt" layoutX="365.0" layoutY="138.0" prefHeight="53.0" prefWidth="410.0" />
+      <Text layoutX="14.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your Farm's name:" wrappingWidth="425.2664794921875">
+         <font>
+            <Font name="Gabriola" size="43.0" />
+         </font>
+      </Text>
+      <TextField fx:id="farmNamePrompt" layoutX="365.0" layoutY="245.0" prefHeight="53.0" prefWidth="410.0" />
+   </children>
+</AnchorPane>
