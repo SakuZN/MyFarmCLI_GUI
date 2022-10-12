@@ -16,7 +16,8 @@ public class GameOverController {
     private Stage stage;
     private Scene scene;
 
-    public void initialize(){}
+    public void initialize() {
+    }
 
     //action event to start game again
     public void switchToMain(ActionEvent e) throws IOException {
@@ -30,7 +31,7 @@ public class GameOverController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/setupScreen.fxml"));
         root = loader.load();
         //root = FXMLLoader.load(getClass().getResource("Scene2.fxml"));
-        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

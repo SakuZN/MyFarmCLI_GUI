@@ -1,18 +1,21 @@
 package com.example.Controllers;
 
-import Farmer.Farmer;
 import Farmer.FarmLot;
+import Farmer.Farmer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import main.Seeds;
-import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import main.Seeds;
 
 import java.io.IOException;
 
@@ -37,7 +40,8 @@ public class PlantSeedController extends MainClassController {
     private Button[][] button;
 
 
-    private void initialize() {}
+    private void initialize() {
+    }
 
     public void setFarm(Farmer player, FarmLot playerLot, Button[][] button) {
         this.player = player;
@@ -71,7 +75,7 @@ public class PlantSeedController extends MainClassController {
         }
     }
 
-    public void plantSeed (Button button) {
+    public void plantSeed(Button button) {
         int listIndex = seedList.getSelectionModel().getSelectedIndex();
         String seedName = seedList.getSelectionModel().getSelectedItem();
         if (listIndex == -1) {
@@ -81,25 +85,23 @@ public class PlantSeedController extends MainClassController {
             alert.setHeaderText("No seed selected");
             alert.setContentText("Please select a seed to plant");
             alert.showAndWait();
-        }
-        else {
+        } else {
             //Get button x and y coordinates to be used to store this data to planted seed
             Coord coord = (Coord) button.getUserData();
             int x = coord.getI();
             int y = coord.getJ();
             //If tile is not plowed
-            if (!playerLot.getTileStatus(x,y).equals("Plowed")) {
+            if (!playerLot.getTileStatus(x, y).equals("Plowed")) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("Tile not plowed");
                 alert.setContentText("Please plow the tile before planting");
                 alert.showAndWait();
-            }
-            else {
+            } else {
                 //Special condition for seed type Fruit Tree
                 if (seedName.equals("Apple") || seedName.equals("Mango")) {
                     Seeds fruitTree = new Seeds(playerLot.getSeeds().get(listIndex), player.getFarmerType());
-                    if (!fruitTree.canPlantTree(x,y, playerLot.getLotTiles())) {
+                    if (!fruitTree.canPlantTree(x, y, playerLot.getLotTiles())) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error");
                         alert.setHeaderText("Cannot plant tree");
@@ -143,7 +145,7 @@ public class PlantSeedController extends MainClassController {
         }
     }
 
-    public void seedInformation (ActionEvent event) {
+    public void seedInformation(ActionEvent event) {
         int listIndex = seedList.getSelectionModel().getSelectedIndex();
         Seeds selectedSeed = playerLot.getSeeds().get(listIndex);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

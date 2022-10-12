@@ -1,19 +1,20 @@
 package com.example.Controllers;
 
-import Farmer.Farmer;
 import Farmer.FarmLot;
+import Farmer.Farmer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import main.Seeds;
-import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import main.Seeds;
 import main.Tools;
+
 import java.io.IOException;
 import java.util.Optional;
 
@@ -38,7 +39,8 @@ public class TendFarmController extends MainClassController {
     private Button[][] button;
 
 
-    private void initialize() {}
+    private void initialize() {
+    }
 
     //Initializes the player and playerLot
 
@@ -60,7 +62,8 @@ public class TendFarmController extends MainClassController {
                 //adds an action event on button, used when tool is selected
                 this.button[i][j].setOnAction(event -> {
                     Button b = (Button) event.getSource();
-                    useTool(b);});
+                    useTool(b);
+                });
             }
         }
         //Adds tools to the toolList
@@ -108,8 +111,7 @@ public class TendFarmController extends MainClassController {
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 switch (tool) {
                     case "Plow":
                         if (playerLot.getTileStatus(x, y).equals("Plowed")) {
@@ -124,8 +126,7 @@ public class TendFarmController extends MainClassController {
                             alert.setHeaderText("Invalid Tile");
                             alert.setContentText("This tile is not an Unplowed tile");
                             alert.showAndWait();
-                        }
-                        else {
+                        } else {
                             //update text of button
                             button.setText("Plowed");
                             setButtonStyle(button);
@@ -136,7 +137,7 @@ public class TendFarmController extends MainClassController {
                             alert.setTitle("Plow");
                             alert.setHeaderText("Plowed");
                             alert.setContentText("You have plowed the tile at (" + x + ", " + y + ")"
-                                    +"\ngained " + playerLot.getTools().get(0).getXpYield() + " xp");
+                                    + "\ngained " + playerLot.getTools().get(0).getXpYield() + " xp");
                             alert.showAndWait();
                             //update the lot tooltip
                             setTooltip(button, "Plowed");
@@ -175,18 +176,17 @@ public class TendFarmController extends MainClassController {
                                         alert.setHeaderText("Seed water limit");
                                         alert.setContentText("This seed cannot be watered anymore");
                                         alert.showAndWait();
-                                    }
-                                    else {
+                                    } else {
                                         playerLot.getPlantedSeeds().get(index).waterseed();
                                         player.addxp(playerLot.getTools().get(1).getXpYield());
                                         alert = new Alert(Alert.AlertType.INFORMATION);
                                         alert.setWidth(500);
                                         alert.setHeight(500);
                                         alert.setTitle("Watering Can");
-                                        alert.setHeaderText("You have watered "+ playerLot.getPlantedSeeds().get(index).getSeedName()
-                                                +" at (" + x + ", " + y + ")");
+                                        alert.setHeaderText("You have watered " + playerLot.getPlantedSeeds().get(index).getSeedName()
+                                                + " at (" + x + ", " + y + ")");
                                         alert.setContentText(playerLot.getPlantedSeeds().get(index).getPlantedSeedWaterInfo()
-                                                +"\ngained " + playerLot.getTools().get(1).getXpYield() + " xp");
+                                                + "\ngained " + playerLot.getTools().get(1).getXpYield() + " xp");
                                         alert.showAndWait();
                                         //Show information when player gets enough xp to level up
                                         if (player.canLvlUp()) {
@@ -223,8 +223,7 @@ public class TendFarmController extends MainClassController {
                                         alert.setHeaderText("Seed fertilize limit");
                                         alert.setContentText("This seed cannot be fertilized anymore");
                                         alert.showAndWait();
-                                    }
-                                    else {
+                                    } else {
                                         //if player does not have enough coins to perform action
                                         if (player.getObjectCoin() < playerLot.getTools().get(2).getCostUsage()) {
                                             alert = new Alert(Alert.AlertType.ERROR);
@@ -232,8 +231,7 @@ public class TendFarmController extends MainClassController {
                                             alert.setHeaderText("Not enough coins");
                                             alert.setContentText("You do not have enough coins to fertilize this seed");
                                             alert.showAndWait();
-                                        }
-                                        else {
+                                        } else {
                                             playerLot.getPlantedSeeds().get(index).fertilizeseed();
                                             player.addxp(playerLot.getTools().get(2).getXpYield());
                                             player.decreaseObjectCoin(playerLot.getTools().get(2).getCostUsage());
@@ -242,10 +240,10 @@ public class TendFarmController extends MainClassController {
                                             alert.setWidth(500);
                                             alert.setHeight(500);
                                             alert.setTitle("Fertilizer");
-                                            alert.setHeaderText("You have fertilized "+ playerLot.getPlantedSeeds().get(index).getSeedName()
-                                                    +" at (" + x + ", " + y + ")");
+                                            alert.setHeaderText("You have fertilized " + playerLot.getPlantedSeeds().get(index).getSeedName()
+                                                    + " at (" + x + ", " + y + ")");
                                             alert.setContentText(playerLot.getPlantedSeeds().get(index).getPlantedSeedFertilizedInfo()
-                                                    +"\ngained " + playerLot.getTools().get(2).getXpYield() + " xp" +
+                                                    + "\ngained " + playerLot.getTools().get(2).getXpYield() + " xp" +
                                                     "\nLost: " + playerLot.getTools().get(2).getCostUsage() + " coins");
                                             alert.showAndWait();
                                             //Show information when player gets enough xp to level up
@@ -265,21 +263,20 @@ public class TendFarmController extends MainClassController {
                         break;
                     case "Pickaxe":
                         //If tile does not contain rock, show error
-                        if (!playerLot.getTileStatus(x,y).equals("Rock")) {
+                        if (!playerLot.getTileStatus(x, y).equals("Rock")) {
                             alert = new Alert(Alert.AlertType.ERROR);
                             alert.setTitle("Error");
                             alert.setHeaderText("No rock found");
                             alert.setContentText("There is no rock at (" + x + ", " + y + ")");
                             alert.showAndWait();
                         } //If player does not have enough coins, show error
-                        else if (player.getObjectCoin() < playerLot.getTools().get(3).getCostUsage()){
+                        else if (player.getObjectCoin() < playerLot.getTools().get(3).getCostUsage()) {
                             alert = new Alert(Alert.AlertType.ERROR);
                             alert.setTitle("Error");
                             alert.setHeaderText("Not enough coins");
                             alert.setContentText("You do not have enough coins to use this tool");
                             alert.showAndWait();
-                        }
-                        else {
+                        } else {
                             button.setText("Unplowed");
                             setButtonStyle(button);
                             alert = new Alert(Alert.AlertType.INFORMATION);
@@ -288,8 +285,8 @@ public class TendFarmController extends MainClassController {
                             alert.setTitle("Pickaxe");
                             alert.setHeaderText("Rock found");
                             alert.setContentText("You have removed the rock at tile (" + x + ", " + y + ")"
-                                    +"\nGained: " + playerLot.getTools().get(3).getXpYield() + " xp"
-                                    +"\nLost: " + playerLot.getTools().get(3).getCostUsage() + " coins");
+                                    + "\nGained: " + playerLot.getTools().get(3).getXpYield() + " xp"
+                                    + "\nLost: " + playerLot.getTools().get(3).getCostUsage() + " coins");
                             alert.showAndWait();
                             //update the lot tooltip
                             setTooltip(button, "Unplowed");
@@ -311,8 +308,8 @@ public class TendFarmController extends MainClassController {
                         }
                         break;
                     case "Shovel": //shovel tool has switch case for each tile status
-                        switch (playerLot.getTileStatus(x,y)) {
-                            case "Withered":
+                        switch (playerLot.getTileStatus(x, y)) {
+                            case "Withered" -> {
                                 //Find the seed coordinate that is withered
                                 int witherIndex = playerLot.getWitheredPlantIndex(playerLot.getPlantedSeeds(), x, y);
                                 //Remove from planted seeds array
@@ -332,7 +329,8 @@ public class TendFarmController extends MainClassController {
                                 //adds an action event on button, used when tool is selected
                                 button.setOnAction(event -> {
                                     Button b = (Button) event.getSource();
-                                    useTool(b);});
+                                    useTool(b);
+                                });
                                 setButtonStyle(button);
                                 this.button[x][y] = button;
                                 gridPaneLot.add(button, y, x);
@@ -347,8 +345,8 @@ public class TendFarmController extends MainClassController {
                                 alert.setTitle("Shovel");
                                 alert.setHeaderText("Withered plant removed");
                                 alert.setContentText("You have removed the withered plant at tile (" + x + ", " + y + ")"
-                                        +"\ngained " + playerLot.getTools().get(4).getXpYield() + " xp"
-                                        +"\nlost " + playerLot.getTools().get(4).getCostUsage() + " coins");
+                                        + "\ngained " + playerLot.getTools().get(4).getXpYield() + " xp"
+                                        + "\nlost " + playerLot.getTools().get(4).getCostUsage() + " coins");
                                 alert.showAndWait();
                                 //Show information when player gets enough xp to level up
                                 if (player.canLvlUp()) {
@@ -358,8 +356,8 @@ public class TendFarmController extends MainClassController {
                                     alert3.setContentText("You are now level " + player.getLvl() + "!");
                                     alert3.showAndWait();
                                 }
-                                break;
-                            case "Planted":
+                            }
+                            case "Planted" -> {
                                 int plantIndex = playerLot.getPlantedSeedIndex(playerLot.getPlantedSeeds(), x, y);
                                 Seeds plantedSeed = playerLot.getPlantedSeeds().get(plantIndex);
                                 //If seed is not ready to harvest, show alert
@@ -367,7 +365,7 @@ public class TendFarmController extends MainClassController {
                                     //Show confirmation of removal
                                     alert = new Alert(Alert.AlertType.CONFIRMATION);
                                     alert.setTitle("Shovel");
-                                    alert.setHeaderText(plantedSeed.getSeedName() +" is not ready to be harvested");
+                                    alert.setHeaderText(plantedSeed.getSeedName() + " is not ready to be harvested");
                                     alert.setContentText("This seed is not ready to harvest yet\nAre you sure you want to remove it?");
                                     Optional<ButtonType> result = alert.showAndWait();
                                     if (result.get() == ButtonType.OK) {
@@ -375,8 +373,8 @@ public class TendFarmController extends MainClassController {
                                         playerLot.getPlantedSeeds().remove(plantIndex);
                                         this.plantedSeeds.setText("Seeds planted: " + playerLot.getPlantedSeeds().size());
                                         this.
-                                        //Update tile status
-                                        playerLot.setTileStatus(x, y, 0);
+                                                //Update tile status
+                                                        playerLot.setTileStatus(x, y, 0);
 
                                         //Update button text
                                         button = new Button("Unplowed");
@@ -389,7 +387,8 @@ public class TendFarmController extends MainClassController {
                                         //adds an action event on button, used when tool is selected
                                         button.setOnAction(event -> {
                                             Button b = (Button) event.getSource();
-                                            useTool(b);});
+                                            useTool(b);
+                                        });
                                         this.button[x][y] = button;
                                         gridPaneLot.add(button, y, x);
 
@@ -404,8 +403,8 @@ public class TendFarmController extends MainClassController {
                                         alert2.setTitle("Shovel");
                                         alert2.setHeaderText("Seed removed");
                                         alert2.setContentText("You have removed the seed at tile (" + x + ", " + y + ")"
-                                                +"\nGained: " + playerLot.getTools().get(4).getXpYield() + " xp"
-                                                +"\nLost: " + playerLot.getTools().get(4).getCostUsage() + " coins");
+                                                + "\nGained: " + playerLot.getTools().get(4).getXpYield() + " xp"
+                                                + "\nLost: " + playerLot.getTools().get(4).getCostUsage() + " coins");
                                         alert2.showAndWait();
                                         //Show information when player gets enough xp to level up
                                         if (player.canLvlUp()) {
@@ -423,15 +422,15 @@ public class TendFarmController extends MainClassController {
                                     alert3.setContentText("This seed is ready to harvest, you cannot remove it");
                                     alert3.showAndWait();
                                 }
-                                break;
-                            case "Unplowed":
+                            }
+                            case "Unplowed" -> {
                                 alert = new Alert(Alert.AlertType.ERROR);
                                 alert.setTitle("Error");
                                 alert.setHeaderText("Cannot use shovel on Unplowed tile");
                                 alert.setContentText("There is no seed at (" + x + ", " + y + ")");
                                 alert.showAndWait();
-                                break;
-                            default:
+                            }
+                            default -> {
                                 alert = new Alert(Alert.AlertType.ERROR);
                                 alert.setTitle("Error");
                                 alert.setHeaderText("Cannot use shovel on this tile");
@@ -440,34 +439,35 @@ public class TendFarmController extends MainClassController {
                                 player.decreaseObjectCoin(playerLot.getTools().get(4).getCostUsage());
                                 this.objectCoin.setText("Coins: " + player.getObjectCoin());
                                 alert.showAndWait();
-                                break;
+                            }
                         }
                         break;
                 }
             }
         }
     }
-    public void showToolDescription (ActionEvent event) {
+
+    public void showToolDescription(ActionEvent event) {
         String tool = toolList.getSelectionModel().getSelectedItem();
         if (tool == null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("No tool selected");
-                alert.setContentText("Please select a tool to use");
-                alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No tool selected");
+            alert.setContentText("Please select a tool to use");
+            alert.showAndWait();
 
-        }
-        else if (tool.contains("Inspect Planted Seed")) {
+        } else if (tool.contains("Inspect Planted Seed")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setWidth(500);
             alert.setHeight(500);
             alert.setTitle("Inspect Planted Seed");
             alert.setHeaderText("The Inspection Tool");
-            alert.setContentText("The Inspection Tool allows you to inspect the planted seed" + "\nShows relevant information about the seed"
-            + "\nlike the days left to harvest and number of times it was fertilized and watered");
+            alert.setContentText("""
+                    The Inspection Tool allows you to inspect the planted seed
+                    Shows relevant information about the seed
+                    like the days left to harvest and number of times it was fertilized and watered""");
             alert.showAndWait();
-        }
-        else {
+        } else {
             for (Tools tools : playerLot.getTools()) {
                 if (tools.getToolName().equals(tool)) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -482,6 +482,7 @@ public class TendFarmController extends MainClassController {
 
 
     }
+
     //Handles the back button
     public void handleBackButton(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainScreen.fxml"));

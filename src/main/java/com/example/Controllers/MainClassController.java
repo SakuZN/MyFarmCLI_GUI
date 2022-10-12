@@ -1,18 +1,22 @@
 package com.example.Controllers;
-import Farmer.Farmer;
+
 import Farmer.FarmLot;
+import Farmer.Farmer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import main.Seeds;
-import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import main.Seeds;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -20,11 +24,11 @@ import java.util.Optional;
 
 public class MainClassController {
 
+    //Limit double type values into two decimal places
+    private static final DecimalFormat df = new DecimalFormat("0.00");
     protected Stage stage;
     protected Scene scene;
     protected Parent root;
-    private Farmer player;
-    private FarmLot playerLot;
     @FXML
     GridPane gridPaneLot;
     @FXML
@@ -38,34 +42,16 @@ public class MainClassController {
     @FXML
     Text daysPassed;
     Button[][] button = new Button[10][5];
+    private Farmer player;
+    private FarmLot playerLot;
+
     @FXML
     private void initialize() {
 
     }
-    //Stores the coordinate of the button pressed in the gridPane
-    public static class Coord {
-        private int i;
-        private int j;
-
-        public Coord(int i, int j) {
-            this.i = i;
-            this.j = j;
-        }
-
-        public int getI() {
-            return i;
-        }
-
-        public int getJ() {
-            return j;
-        }
-    }
-
-    //Limit double type values into two decimal places
-    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     //Initializes the player and playerLot
-    public void setFarm (Farmer player, FarmLot playerLot) {
+    public void setFarm(Farmer player, FarmLot playerLot) {
         this.player = player;
         this.playerLot = playerLot;
 
@@ -81,6 +67,7 @@ public class MainClassController {
         buttonReinstate();
 
     }
+
     private void buttonReinstate() {
         for (int i = 0; i < playerLot.getLotTiles().length; i++) {
             for (int j = 0; j < playerLot.getLotTiles()[i].length; j++) {
@@ -96,7 +83,7 @@ public class MainClassController {
     }
 
     //Used by other scenes that modifies the playerLot
-    public void setButtonFarm (Farmer player, FarmLot playerLot ,Button[][] button) {
+    public void setButtonFarm(Farmer player, FarmLot playerLot, Button[][] button) {
         this.player = player;
         this.playerLot = playerLot;
         this.button = button;
@@ -111,16 +98,16 @@ public class MainClassController {
         //Add updated buttons to gridPaneLot
         for (int i = 0; i < playerLot.getLotTiles().length; i++) {
             for (int j = 0; j < playerLot.getLotTiles()[i].length; j++) {
-                button[i][j].setOnAction(event -> {});
+                button[i][j].setOnAction(event -> {
+                });
                 gridPaneLot.add(button[i][j], j, i);
             }
         }
 
     }
 
-
     //Sets the tooltip for each button, shows relevant information about the tile
-    public void setTooltip (Button button, String text) {
+    public void setTooltip(Button button, String text) {
         Tooltip tooltip = new Tooltip();
         switch (text) {
             case "Unplowed" -> tooltip.setText("This tile is unplowed.\nUse plow tool to make the tile plowed.");
@@ -138,7 +125,8 @@ public class MainClassController {
         tooltip.setShowDelay(javafx.util.Duration.seconds(0.5));
         button.setTooltip(tooltip);
     }
-    public void setButtonStyle (Button button) {
+
+    public void setButtonStyle(Button button) {
         String Val = button.getText();
         //Change text of button depending on tile status
         switch (Val) {
@@ -161,24 +149,25 @@ public class MainClassController {
         seedStoreController storeScene = loader.getController();
         storeScene.setFarm(player, playerLot);
         //root = FXMLLoader.load(getClass().getResource("Scene2.fxml"));
-        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
     public void advanceDay(ActionEvent e) throws IOException {
 
         int witherCount = 0;
         int harvestCount = 0;
         //Grow all currently planted seeds
         if (playerLot.getPlantedSeeds().size() > 0) {
-            for (int i = 0; i <playerLot.getPlantedSeeds().size(); i++) {
+            for (int i = 0; i < playerLot.getPlantedSeeds().size(); i++) {
                 playerLot.getPlantedSeeds().get(i).grow();
                 playerLot.getPlantedSeeds().get(i).checkIfWither();
             }
 
             //Check for any planted seeds that withered and updates tile if so
-            for (Seeds seed: playerLot.getPlantedSeeds()) {
+            for (Seeds seed : playerLot.getPlantedSeeds()) {
                 if (seed.getSeedWithered() == 1) {
                     playerLot.setTileStatus(seed.getxCoord(), seed.getyCoord(), 3);
                     button[seed.getxCoord()][seed.getyCoord()].setText("Withered");
@@ -236,35 +225,38 @@ public class MainClassController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GameOverScreen.fxml"));
             root = loader.load();
             //root = FXMLLoader.load(getClass().getResource("Scene2.fxml"));
-            stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+            stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
         }
     }
+
     public void tendFarm(ActionEvent e) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/tendFarmScreen.fxml"));
         root = loader.load();
         TendFarmController tendFarmScene = loader.getController();
         tendFarmScene.setFarm(player, playerLot, button);
         //root = FXMLLoader.load(getClass().getResource("Scene2.fxml"));
-        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
 
     }
+
     public void plantSeed(ActionEvent e) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/plantSeedScreen.fxml"));
         root = loader.load();
         PlantSeedController plantSeedScene = loader.getController();
         plantSeedScene.setFarm(player, playerLot, button);
         //root = FXMLLoader.load(getClass().getResource("Scene2.fxml"));
-        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
     public void harvestSeed(ActionEvent e) throws IOException {
         int harvestCount = 0;
         for (Seeds seed : playerLot.getPlantedSeeds())
@@ -276,8 +268,7 @@ public class MainClassController {
             alert.setHeaderText("You have no seeds to harvest!");
             alert.setContentText("Plant seeds and take care of them to harvest!");
             alert.showAndWait();
-        }
-        else {
+        } else {
             //create a confirmation dialog box
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Harvest seed");
@@ -361,13 +352,14 @@ public class MainClassController {
                 "\nFarmer XP: " + player.getXp());
         alert.showAndWait();
     }
+
     public void registerNewStatus(ActionEvent e) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/RegisterNewStatusScreen.fxml"));
         root = loader.load();
         RegisterStatusController regStatusScene = loader.getController();
         regStatusScene.setFarm(player, playerLot);
         //root = FXMLLoader.load(getClass().getResource("Scene2.fxml"));
-        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -378,9 +370,23 @@ public class MainClassController {
                 player.getObjectCoin() <= 2) && playerLot.lotWithered();
     }
 
+    //Stores the coordinate of the button pressed in the gridPane
+    public static class Coord {
+        private final int i;
+        private final int j;
 
-    public Farmer getPlayer() { return player; }
+        public Coord(int i, int j) {
+            this.i = i;
+            this.j = j;
+        }
 
-    public FarmLot getPlayerLot() { return playerLot; }
+        public int getI() {
+            return i;
+        }
+
+        public int getJ() {
+            return j;
+        }
+    }
 }
 

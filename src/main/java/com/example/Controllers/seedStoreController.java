@@ -1,17 +1,19 @@
 package com.example.Controllers;
 
-import Farmer.Farmer;
 import Farmer.FarmLot;
+import Farmer.Farmer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import main.Seeds;
 import main.Store;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -29,15 +31,15 @@ public class seedStoreController extends MainClassController {
     Text objectCoin;
     @FXML
     Text seedOwned;
-    @FXML
-    private void initialize() {}
-
+    Store seedStore;
     private Farmer player;
     private FarmLot playerLot;
 
-    Store seedStore;
+    @FXML
+    private void initialize() {
+    }
 
-    public void setFarm (Farmer player, FarmLot playerLot) {
+    public void setFarm(Farmer player, FarmLot playerLot) {
         this.player = player;
         this.playerLot = playerLot;
         objectCoin.setText("Coins: " + player.getObjectCoin());
@@ -49,6 +51,7 @@ public class seedStoreController extends MainClassController {
         listFruitTree.getItems().addAll("Mango", "Apple");
 
     }
+
     public void buyRootCrop(ActionEvent e) {
         //Store farmer type benefit discount
         int farmerTypeBenefit = player.farmerTypeBenefit(player.getFarmerType());
@@ -56,7 +59,7 @@ public class seedStoreController extends MainClassController {
         //Check if selected seed is of type root crop
         if (listRootCrop.getSelectionModel().getSelectedItem() != null) {
             String selectedSeed = listRootCrop.getSelectionModel().getSelectedItem();
-            for (Seeds seed: seedStore.getRootCropSale()) {
+            for (Seeds seed : seedStore.getRootCropSale()) {
                 if (seed.getSeedName().equals(selectedSeed)) {
                     //Check if player has enough coins
                     if (player.getObjectCoin() >= seed.getSeedCost() - farmerTypeBenefit) {
@@ -75,8 +78,7 @@ public class seedStoreController extends MainClassController {
                     }
                 }
             }
-        }
-        else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("No seed selected");
@@ -85,6 +87,7 @@ public class seedStoreController extends MainClassController {
         }
 
     }
+
     public void showRootCropInfo(ActionEvent e) {
 
         if (listRootCrop.getSelectionModel().getSelectedItem() != null) {
@@ -100,8 +103,7 @@ public class seedStoreController extends MainClassController {
                     alert.showAndWait();
                 }
             }
-        }
-        else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("No seed selected");
@@ -110,14 +112,14 @@ public class seedStoreController extends MainClassController {
         }
     }
 
-    public void buyFlower (ActionEvent e) {
+    public void buyFlower(ActionEvent e) {
         //Store farmer type benefit discount
         int farmerTypeBenefit = player.farmerTypeBenefit(player.getFarmerType());
 
         //Check if selected seed is of type root crop
         if (listFlower.getSelectionModel().getSelectedItem() != null) {
             String selectedSeed = listFlower.getSelectionModel().getSelectedItem();
-            for (Seeds seed: seedStore.getFlowerSale()) {
+            for (Seeds seed : seedStore.getFlowerSale()) {
                 if (seed.getSeedName().equals(selectedSeed)) {
                     //Check if player has enough coins
                     if (player.getObjectCoin() >= seed.getSeedCost() - farmerTypeBenefit) {
@@ -135,8 +137,7 @@ public class seedStoreController extends MainClassController {
                     }
                 }
             }
-        }
-        else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("No seed selected");
@@ -144,6 +145,7 @@ public class seedStoreController extends MainClassController {
             alert.showAndWait();
         }
     }
+
     public void showFlowerInfo(ActionEvent e) {
         if (listFlower.getSelectionModel().getSelectedItem() != null) {
             String selectedSeed = listFlower.getSelectionModel().getSelectedItem();
@@ -158,8 +160,7 @@ public class seedStoreController extends MainClassController {
                     alert.showAndWait();
                 }
             }
-        }
-        else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("No seed selected");
@@ -175,7 +176,7 @@ public class seedStoreController extends MainClassController {
         //Check if selected seed is of type Fruit Tree
         if (listFruitTree.getSelectionModel().getSelectedItem() != null) {
             String selectedSeed = listFruitTree.getSelectionModel().getSelectedItem();
-            for (Seeds seed: seedStore.getFruitTreeSale()) {
+            for (Seeds seed : seedStore.getFruitTreeSale()) {
                 if (seed.getSeedName().equals(selectedSeed)) {
                     //Check if player has enough coins
                     if (player.getObjectCoin() >= seed.getSeedCost() - farmerTypeBenefit) {
@@ -192,8 +193,7 @@ public class seedStoreController extends MainClassController {
                     }
                 }
             }
-        }
-        else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("No seed selected");
@@ -201,6 +201,7 @@ public class seedStoreController extends MainClassController {
             alert.showAndWait();
         }
     }
+
     public void showFruitTreeInfo(ActionEvent e) {
         if (listFruitTree.getSelectionModel().getSelectedItem() != null) {
             String selectedSeed = listFruitTree.getSelectionModel().getSelectedItem();
@@ -215,8 +216,7 @@ public class seedStoreController extends MainClassController {
                     alert.showAndWait();
                 }
             }
-        }
-        else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("No seed selected");

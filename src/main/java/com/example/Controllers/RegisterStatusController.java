@@ -1,14 +1,14 @@
 package com.example.Controllers;
 
-import Farmer.Farmer;
 import Farmer.FarmLot;
+import Farmer.Farmer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.text.Text;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,7 +25,9 @@ public class RegisterStatusController extends MainClassController {
 
     private Farmer player;
     private FarmLot playerLot;
-    private void initialize() {}
+
+    private void initialize() {
+    }
 
     @Override
     public void setFarm(Farmer player, FarmLot playerLot) {
@@ -46,6 +48,7 @@ public class RegisterStatusController extends MainClassController {
         alert.setContentText(player.getBenefits("Registered Farmer"));
         alert.showAndWait();
     }
+
     public void distinguishedFarmerBenefits(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setWidth(500);
@@ -55,6 +58,7 @@ public class RegisterStatusController extends MainClassController {
         alert.setContentText(player.getBenefits("Distinguished Farmer"));
         alert.showAndWait();
     }
+
     public void legendaryFarmerBenefits(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setWidth(500);
@@ -83,6 +87,7 @@ public class RegisterStatusController extends MainClassController {
             alert.showAndWait();
         }
     }
+
     public void registerToDistinguishedFarmer(ActionEvent event) throws IOException {
         if (player.getLvl() >= 10 && player.getFarmerType().equals("Registered Farmer") && player.getObjectCoin() >= 300) {
             player.setFarmerType(2);
@@ -100,6 +105,7 @@ public class RegisterStatusController extends MainClassController {
             alert.showAndWait();
         }
     }
+
     public void registerToLegendaryFarmer(ActionEvent event) throws IOException {
         if (player.getLvl() >= 15 && player.getFarmerType().equals("Distinguished Farmer") && player.getObjectCoin() >= 400) {
             player.setFarmerType(3);
@@ -119,7 +125,7 @@ public class RegisterStatusController extends MainClassController {
     }
 
 
-    public void backButton (ActionEvent event) throws IOException {
+    public void backButton(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainScreen.fxml"));
         root = loader.load();
         MainClassController mainClassController = loader.getController();
