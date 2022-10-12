@@ -19,8 +19,8 @@ public class Farmer {
         farmerType = FARMERTYPE[0];
         seeds = 0;
         objectCoin = 100;
-        lvl = 15;
-        xp = 0;
+        lvl = 0;
+        xp = 99;
     }
 
     public Farmer(Farmer farmer) {
@@ -112,7 +112,15 @@ public class Farmer {
         }
         return "";
     }
-    public void lvlUp () { lvl = (int)xp / 100;}
+    public boolean canLvlUp () {
+        if ( xp - (lvl * 100) >= 100) {
+            lvlUp();
+            return true;
+        }
+
+        return false;
+    }
+    private void lvlUp() {lvl = lvl + 1;}
 
     public void addxp (double xpYield) { xp = xp + xpYield;}
 

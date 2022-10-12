@@ -39,6 +39,8 @@ public class RegisterStatusController extends MainClassController {
     //Below are methods used to show the benefits and requirements of each status
     public void registeredFarmerBenefits(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setWidth(500);
+        alert.setHeight(500);
         alert.setTitle("Registered Farmer Benefits");
         alert.setHeaderText("Registered Farmer Benefits");
         alert.setContentText(player.getBenefits("Registered Farmer"));
@@ -46,6 +48,8 @@ public class RegisterStatusController extends MainClassController {
     }
     public void distinguishedFarmerBenefits(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setWidth(500);
+        alert.setHeight(500);
         alert.setTitle("Distinguished Farmer Benefits");
         alert.setHeaderText("Distinguished Farmer Benefits");
         alert.setContentText(player.getBenefits("Distinguished Farmer"));
@@ -53,6 +57,8 @@ public class RegisterStatusController extends MainClassController {
     }
     public void legendaryFarmerBenefits(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setWidth(500);
+        alert.setHeight(500);
         alert.setTitle("Legendary Farmer Benefits");
         alert.setHeaderText("Legendary Farmer Benefits");
         alert.setContentText(player.getBenefits("Legendary Farmer"));

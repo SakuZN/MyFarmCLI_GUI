@@ -205,8 +205,6 @@ public class MainClassController {
         seedsHarvest.setText("Seeds harvestable: " + harvestCount);
         plantedSeeds.setText("Seeds planted: " + (playerLot.getPlantedSeeds().size() - witherCount));
 
-        //Levels up the player whenever possible
-        player.lvlUp();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Advance Day");
@@ -301,6 +299,8 @@ public class MainClassController {
                 for (Seeds harvestSeed : playerLot.getHarvestSeeds()) {
                     //Show information of harvest
                     Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setWidth(500);
+                    alert.setHeight(500);
                     alert2.setTitle("Harvested seed");
                     alert2.setHeaderText("You have harvested a " + harvestSeed.getSeedName() + "!");
                     alert2.setContentText(harvestSeed.getHarvestInfo(player.getFarmerType()) +
@@ -310,6 +310,14 @@ public class MainClassController {
                     //Update player xp and coin amount
                     player.addxp(harvestSeed.getXpYield());
                     player.addObjectCoin(harvestSeed.finalHarvestPrice(player.getFarmerType(), harvestSeed.getSeedType()));
+                    //Alert info if player levels up
+                    if (player.canLvlUp()) {
+                        Alert alert3 = new Alert(Alert.AlertType.INFORMATION);
+                        alert3.setTitle("Level up");
+                        alert3.setHeaderText("You have leveled up!");
+                        alert3.setContentText("You are now level " + player.getLvl() + "!");
+                        alert3.showAndWait();
+                    }
 
                     //update tile status
                     playerLot.setTileStatus(harvestSeed.getxCoord(), harvestSeed.getyCoord(), 0);
@@ -342,6 +350,8 @@ public class MainClassController {
 
     public void viewFarmerStatus(ActionEvent e) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setWidth(500);
+        alert.setHeight(500);
         alert.setTitle("Farmer Status");
         alert.setHeaderText("Farmer Status");
         //alert content of farmer name, farmer type, farmer level, and farmer xp

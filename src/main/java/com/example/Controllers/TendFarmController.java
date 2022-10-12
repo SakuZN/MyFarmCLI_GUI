@@ -99,6 +99,8 @@ public class TendFarmController extends MainClassController {
                     for (Seeds seed : playerLot.getPlantedSeeds()) {
                         if (seed.getxCoord() == x && seed.getyCoord() == y) {
                             alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setWidth(500);
+                            alert.setHeight(500);
                             alert.setTitle("Seed Information");
                             alert.setHeaderText("Seed Information");
                             alert.setContentText(seed.getPlantedSeedInfo());
@@ -129,6 +131,8 @@ public class TendFarmController extends MainClassController {
                             setButtonStyle(button);
                             //Show info to user of what happened
                             alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setWidth(500);
+                            alert.setHeight(500);
                             alert.setTitle("Plow");
                             alert.setHeaderText("Plowed");
                             alert.setContentText("You have plowed the tile at (" + x + ", " + y + ")"
@@ -138,6 +142,14 @@ public class TendFarmController extends MainClassController {
                             setTooltip(button, "Plowed");
                             //update player xp
                             player.addxp(playerLot.getTools().get(0).getXpYield());
+                            //Show information when player gets enough xp to level up
+                            if (player.canLvlUp()) {
+                                Alert alert3 = new Alert(Alert.AlertType.INFORMATION);
+                                alert3.setTitle("Level up");
+                                alert3.setHeaderText("You have leveled up!");
+                                alert3.setContentText("You are now level " + player.getLvl() + "!");
+                                alert3.showAndWait();
+                            }
                             //update lot tile status in array
                             playerLot.setTileStatus(x, y, 1);
                         }
@@ -168,12 +180,22 @@ public class TendFarmController extends MainClassController {
                                         playerLot.getPlantedSeeds().get(index).waterseed();
                                         player.addxp(playerLot.getTools().get(1).getXpYield());
                                         alert = new Alert(Alert.AlertType.INFORMATION);
+                                        alert.setWidth(500);
+                                        alert.setHeight(500);
                                         alert.setTitle("Watering Can");
                                         alert.setHeaderText("You have watered "+ playerLot.getPlantedSeeds().get(index).getSeedName()
                                                 +" at (" + x + ", " + y + ")");
                                         alert.setContentText(playerLot.getPlantedSeeds().get(index).getPlantedSeedWaterInfo()
                                                 +"\ngained " + playerLot.getTools().get(1).getXpYield() + " xp");
                                         alert.showAndWait();
+                                        //Show information when player gets enough xp to level up
+                                        if (player.canLvlUp()) {
+                                            Alert alert3 = new Alert(Alert.AlertType.INFORMATION);
+                                            alert3.setTitle("Level up");
+                                            alert3.setHeaderText("You have leveled up!");
+                                            alert3.setContentText("You are now level " + player.getLvl() + "!");
+                                            alert3.showAndWait();
+                                        }
                                     }
                                 }
                                 index++;
@@ -217,6 +239,8 @@ public class TendFarmController extends MainClassController {
                                             player.decreaseObjectCoin(playerLot.getTools().get(2).getCostUsage());
                                             objectCoin.setText("Coins: " + player.getObjectCoin());
                                             alert = new Alert(Alert.AlertType.INFORMATION);
+                                            alert.setWidth(500);
+                                            alert.setHeight(500);
                                             alert.setTitle("Fertilizer");
                                             alert.setHeaderText("You have fertilized "+ playerLot.getPlantedSeeds().get(index).getSeedName()
                                                     +" at (" + x + ", " + y + ")");
@@ -224,6 +248,14 @@ public class TendFarmController extends MainClassController {
                                                     +"\ngained " + playerLot.getTools().get(2).getXpYield() + " xp" +
                                                     "\nLost: " + playerLot.getTools().get(2).getCostUsage() + " coins");
                                             alert.showAndWait();
+                                            //Show information when player gets enough xp to level up
+                                            if (player.canLvlUp()) {
+                                                Alert alert3 = new Alert(Alert.AlertType.INFORMATION);
+                                                alert3.setTitle("Level up");
+                                                alert3.setHeaderText("You have leveled up!");
+                                                alert3.setContentText("You are now level " + player.getLvl() + "!");
+                                                alert3.showAndWait();
+                                            }
                                         }
                                     }
                                 }
@@ -251,6 +283,8 @@ public class TendFarmController extends MainClassController {
                             button.setText("Unplowed");
                             setButtonStyle(button);
                             alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setWidth(500);
+                            alert.setHeight(500);
                             alert.setTitle("Pickaxe");
                             alert.setHeaderText("Rock found");
                             alert.setContentText("You have removed the rock at tile (" + x + ", " + y + ")"
@@ -261,6 +295,14 @@ public class TendFarmController extends MainClassController {
                             setTooltip(button, "Unplowed");
                             //update player xp
                             player.addxp(playerLot.getTools().get(3).getXpYield());
+                            //Show information when player gets enough xp to level up
+                            if (player.canLvlUp()) {
+                                Alert alert3 = new Alert(Alert.AlertType.INFORMATION);
+                                alert3.setTitle("Level up");
+                                alert3.setHeaderText("You have leveled up!");
+                                alert3.setContentText("You are now level " + player.getLvl() + "!");
+                                alert3.showAndWait();
+                            }
                             //update player coins
                             player.decreaseObjectCoin(playerLot.getTools().get(3).getCostUsage());
                             this.objectCoin.setText("Coins: " + player.getObjectCoin());
@@ -308,6 +350,14 @@ public class TendFarmController extends MainClassController {
                                         +"\ngained " + playerLot.getTools().get(4).getXpYield() + " xp"
                                         +"\nlost " + playerLot.getTools().get(4).getCostUsage() + " coins");
                                 alert.showAndWait();
+                                //Show information when player gets enough xp to level up
+                                if (player.canLvlUp()) {
+                                    Alert alert3 = new Alert(Alert.AlertType.INFORMATION);
+                                    alert3.setTitle("Level up");
+                                    alert3.setHeaderText("You have leveled up!");
+                                    alert3.setContentText("You are now level " + player.getLvl() + "!");
+                                    alert3.showAndWait();
+                                }
                                 break;
                             case "Planted":
                                 int plantIndex = playerLot.getPlantedSeedIndex(playerLot.getPlantedSeeds(), x, y);
@@ -357,6 +407,14 @@ public class TendFarmController extends MainClassController {
                                                 +"\nGained: " + playerLot.getTools().get(4).getXpYield() + " xp"
                                                 +"\nLost: " + playerLot.getTools().get(4).getCostUsage() + " coins");
                                         alert2.showAndWait();
+                                        //Show information when player gets enough xp to level up
+                                        if (player.canLvlUp()) {
+                                            Alert alert3 = new Alert(Alert.AlertType.INFORMATION);
+                                            alert3.setTitle("Level up");
+                                            alert3.setHeaderText("You have leveled up!");
+                                            alert3.setContentText("You are now level " + player.getLvl() + "!");
+                                            alert3.showAndWait();
+                                        }
                                     }
                                 } else {
                                     Alert alert3 = new Alert(Alert.AlertType.ERROR);
@@ -401,6 +459,8 @@ public class TendFarmController extends MainClassController {
         }
         else if (tool.contains("Inspect Planted Seed")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setWidth(500);
+            alert.setHeight(500);
             alert.setTitle("Inspect Planted Seed");
             alert.setHeaderText("The Inspection Tool");
             alert.setContentText("The Inspection Tool allows you to inspect the planted seed" + "\nShows relevant information about the seed"

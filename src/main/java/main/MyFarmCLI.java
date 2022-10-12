@@ -622,7 +622,7 @@ public class MyFarmCLI{
         //Counts how many days have passed
         player.passDay();
         //Levels up the player whenever possible
-        player.lvlUp();
+        player.canLvlUp();
 
         int witherCount = 0;
         //Check for any planted seeds that withered and updates tile if so

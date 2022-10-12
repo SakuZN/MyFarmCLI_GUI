@@ -133,6 +133,8 @@ public class PlantSeedController extends MainClassController {
 
                 //Finally, show alert information about action done
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setWidth(500);
+                alert.setHeight(500);
                 alert.setTitle("Success");
                 alert.setHeaderText("Seed planted");
                 alert.setContentText(seed.getSeedName() + " planted successfully at tile (" + x + ", " + y + ")");
@@ -145,6 +147,8 @@ public class PlantSeedController extends MainClassController {
         int listIndex = seedList.getSelectionModel().getSelectedIndex();
         Seeds selectedSeed = playerLot.getSeeds().get(listIndex);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setWidth(500);
+        alert.setHeight(500);
         alert.setTitle(selectedSeed.getSeedName());
         alert.setHeaderText("Information about " + selectedSeed.getSeedName());
         alert.setContentText(selectedSeed.getSeedInfo());

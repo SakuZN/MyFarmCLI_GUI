@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import main.Seeds;
 import main.Store;
@@ -67,6 +66,8 @@ public class seedStoreController extends MainClassController {
                         seedOwned.setText("Seeds owned: " + playerLot.getSeeds().size());
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setWidth(500);
+                        alert.setHeight(500);
                         alert.setTitle("Error");
                         alert.setHeaderText("Not enough coins");
                         alert.setContentText("You do not have enough coins to buy " + selectedSeed);
@@ -91,6 +92,8 @@ public class seedStoreController extends MainClassController {
             for (Seeds seed : seedStore.getRootCropSale()) {
                 if (seed.getSeedName().equals(selectedSeed)) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setWidth(500);
+                    alert.setHeight(500);
                     alert.setTitle("Seed Information");
                     alert.setHeaderText("Seed Name: " + seed.getSeedName());
                     alert.setContentText(seed.getSeedInfo());
@@ -147,6 +150,8 @@ public class seedStoreController extends MainClassController {
             for (Seeds seed : seedStore.getFlowerSale()) {
                 if (seed.getSeedName().equals(selectedSeed)) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setWidth(500);
+                    alert.setHeight(500);
                     alert.setTitle("Seed Information");
                     alert.setHeaderText("Seed Name: " + seed.getSeedName());
                     alert.setContentText(seed.getSeedInfo());
@@ -202,6 +207,8 @@ public class seedStoreController extends MainClassController {
             for (Seeds seed : seedStore.getFruitTreeSale()) {
                 if (seed.getSeedName().equals(selectedSeed)) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setWidth(500);
+                    alert.setHeight(500);
                     alert.setTitle("Seed Information");
                     alert.setHeaderText("Seed Name: " + seed.getSeedName());
                     alert.setContentText(seed.getSeedInfo());
