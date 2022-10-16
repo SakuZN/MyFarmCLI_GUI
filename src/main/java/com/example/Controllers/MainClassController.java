@@ -243,6 +243,7 @@ public class MainClassController {
         stage.setScene(scene);
         stage.show();
 
+
     }
 
     public void plantSeed(ActionEvent e) throws IOException {

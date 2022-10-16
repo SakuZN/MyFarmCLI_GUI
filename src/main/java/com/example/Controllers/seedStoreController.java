@@ -2,14 +2,15 @@ package com.example.Controllers;
 
 import Farmer.FarmLot;
 import Farmer.Farmer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.Seeds;
@@ -20,18 +21,17 @@ import java.io.IOException;
 public class seedStoreController extends MainClassController {
 
     @FXML
-    ListView<String> listRootCrop;
+    private TableView<Seeds> seedView;
     @FXML
-    ListView<String> listFlower;
+    private TableColumn<Seeds, String> seedName;
     @FXML
-    ListView<String> listFruitTree;
+    private TableColumn<Seeds, String> seedType;
     @FXML
-    Button buyButton;
+    private TableColumn<Seeds, Integer> seedCost;
     @FXML
-    Text objectCoin;
+    private Text objectCoin;
     @FXML
-    Text seedOwned;
-    Store seedStore;
+    private Text seedOwned;
     private Farmer player;
     private FarmLot playerLot;
 
@@ -44,183 +44,76 @@ public class seedStoreController extends MainClassController {
         this.playerLot = playerLot;
         objectCoin.setText("Coins: " + player.getObjectCoin());
         seedOwned.setText("Seeds owned: " + playerLot.getSeeds().size());
-        // Instantiate store
-        seedStore = new Store();
-        listRootCrop.getItems().addAll("Turnip", "Carrot", "Potato");
-        listFlower.getItems().addAll("Rose", "Turnips", "Sunflower");
-        listFruitTree.getItems().addAll("Mango", "Apple");
 
+        // Set up Table column for seed name
+        seedName.setCellValueFactory(new PropertyValueFactory<>("seedName"));
+        // Set up Table column for seed type
+        seedType.setCellValueFactory(new PropertyValueFactory<>("seedType"));
+        // Set up Table column for seed cost
+        seedCost.setCellValueFactory(new PropertyValueFactory<>("seedCost"));
+
+        //Finally setup Table List
+        seedView.setItems(getSeeds());
+
+        //change table view font size
+        seedView.setStyle("-fx-font-size: 16px;");
+        seedView.setFixedCellSize(32);
     }
 
-    public void buyRootCrop(ActionEvent e) {
+    //Method to get all seeds from the store
+    private ObservableList<Seeds> getSeeds () {
+        ObservableList<Seeds> seedList = FXCollections.observableArrayList();
+        Store seedStore = new Store();
+        seedList.addAll(seedStore.getAllForSale());
+        return seedList;
+    }
+
+    //Buy selected seed from the store
+    public void buySeed(ActionEvent event) {
+        Seeds selectedSeed = seedView.getSelectionModel().getSelectedItem();
         //Store farmer type benefit discount
         int farmerTypeBenefit = player.farmerTypeBenefit(player.getFarmerType());
-
-        //Check if selected seed is of type root crop
-        if (listRootCrop.getSelectionModel().getSelectedItem() != null) {
-            String selectedSeed = listRootCrop.getSelectionModel().getSelectedItem();
-            for (Seeds seed : seedStore.getRootCropSale()) {
-                if (seed.getSeedName().equals(selectedSeed)) {
-                    //Check if player has enough coins
-                    if (player.getObjectCoin() >= seed.getSeedCost() - farmerTypeBenefit) {
-                        player.decreaseObjectCoin(seed.getSeedCost() - farmerTypeBenefit);
-                        playerLot.increaseSeed(seed, player.getFarmerType());
-                        objectCoin.setText("Coins: " + player.getObjectCoin());
-                        seedOwned.setText("Seeds owned: " + playerLot.getSeeds().size());
-                    } else {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setWidth(500);
-                        alert.setHeight(500);
-                        alert.setTitle("Error");
-                        alert.setHeaderText("Not enough coins");
-                        alert.setContentText("You do not have enough coins to buy " + selectedSeed);
-                        alert.showAndWait();
-                    }
-                }
+        if (selectedSeed != null) {
+            if (player.getObjectCoin() >= selectedSeed.getSeedCost()) {
+                player.decreaseObjectCoin(selectedSeed.getSeedCost() - farmerTypeBenefit);
+                playerLot.increaseSeed(selectedSeed, player.getFarmerType());
+                objectCoin.setText("Coins: " + player.getObjectCoin());
+                seedOwned.setText("Seeds owned: " + playerLot.getSeeds().size());
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setWidth(500);
+                alert.setHeight(500);
+                alert.setTitle("Not enough coins");
+                alert.setHeaderText(null);
+                alert.setContentText("You do not have enough coins to buy " + selectedSeed.getSeedName());
+                alert.showAndWait();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("No seed selected");
-            alert.setContentText("Please select a seed to buy");
-            alert.showAndWait();
-        }
-
-    }
-
-    public void showRootCropInfo(ActionEvent e) {
-
-        if (listRootCrop.getSelectionModel().getSelectedItem() != null) {
-            String selectedSeed = listRootCrop.getSelectionModel().getSelectedItem();
-            for (Seeds seed : seedStore.getRootCropSale()) {
-                if (seed.getSeedName().equals(selectedSeed)) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setWidth(500);
-                    alert.setHeight(500);
-                    alert.setTitle("Seed Information");
-                    alert.setHeaderText("Seed Name: " + seed.getSeedName());
-                    alert.setContentText(seed.getSeedInfo());
-                    alert.showAndWait();
-                }
-            }
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("No seed selected");
-            alert.setContentText("Please select a seed to view information");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setWidth(500);
+            alert.setHeight(500);
+            alert.setTitle("No seed selected");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a seed to buy.");
             alert.showAndWait();
         }
     }
-
-    public void buyFlower(ActionEvent e) {
-        //Store farmer type benefit discount
-        int farmerTypeBenefit = player.farmerTypeBenefit(player.getFarmerType());
-
-        //Check if selected seed is of type root crop
-        if (listFlower.getSelectionModel().getSelectedItem() != null) {
-            String selectedSeed = listFlower.getSelectionModel().getSelectedItem();
-            for (Seeds seed : seedStore.getFlowerSale()) {
-                if (seed.getSeedName().equals(selectedSeed)) {
-                    //Check if player has enough coins
-                    if (player.getObjectCoin() >= seed.getSeedCost() - farmerTypeBenefit) {
-                        player.decreaseObjectCoin(seed.getSeedCost() - farmerTypeBenefit);
-                        playerLot.increaseSeed(seed, player.getFarmerType());
-
-                        objectCoin.setText("Coins: " + player.getObjectCoin());
-                        seedOwned.setText("Seeds owned: " + playerLot.getSeeds().size());
-                    } else {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error");
-                        alert.setHeaderText("Not enough coins");
-                        alert.setContentText("You do not have enough coins to buy " + selectedSeed);
-                        alert.showAndWait();
-                    }
-                }
-            }
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("No seed selected");
-            alert.setContentText("Please select a seed to buy");
+    //Show selected seed information
+    public void seedInformation (ActionEvent event) {
+        Seeds selectedSeed = seedView.getSelectionModel().getSelectedItem();
+        if (selectedSeed != null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(selectedSeed.getSeedName());
+            alert.setHeaderText(null);
+            alert.setContentText(selectedSeed.getSeedInfo());
             alert.showAndWait();
-        }
-    }
-
-    public void showFlowerInfo(ActionEvent e) {
-        if (listFlower.getSelectionModel().getSelectedItem() != null) {
-            String selectedSeed = listFlower.getSelectionModel().getSelectedItem();
-            for (Seeds seed : seedStore.getFlowerSale()) {
-                if (seed.getSeedName().equals(selectedSeed)) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setWidth(500);
-                    alert.setHeight(500);
-                    alert.setTitle("Seed Information");
-                    alert.setHeaderText("Seed Name: " + seed.getSeedName());
-                    alert.setContentText(seed.getSeedInfo());
-                    alert.showAndWait();
-                }
-            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("No seed selected");
-            alert.setContentText("Please select a seed to view information");
-            alert.showAndWait();
-        }
-    }
-
-    public void buyFruitTree(ActionEvent e) {
-        //Store farmer type benefit discount
-        int farmerTypeBenefit = player.farmerTypeBenefit(player.getFarmerType());
-
-        //Check if selected seed is of type Fruit Tree
-        if (listFruitTree.getSelectionModel().getSelectedItem() != null) {
-            String selectedSeed = listFruitTree.getSelectionModel().getSelectedItem();
-            for (Seeds seed : seedStore.getFruitTreeSale()) {
-                if (seed.getSeedName().equals(selectedSeed)) {
-                    //Check if player has enough coins
-                    if (player.getObjectCoin() >= seed.getSeedCost() - farmerTypeBenefit) {
-                        player.decreaseObjectCoin(seed.getSeedCost() - farmerTypeBenefit);
-                        playerLot.increaseSeed(seed, player.getFarmerType());
-                        objectCoin.setText("Coins: " + player.getObjectCoin());
-                        seedOwned.setText("Seeds owned: " + playerLot.getSeeds().size());
-                    } else {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error");
-                        alert.setHeaderText("Not enough coins");
-                        alert.setContentText("You do not have enough coins to buy " + selectedSeed);
-                        alert.showAndWait();
-                    }
-                }
-            }
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("No seed selected");
-            alert.setContentText("Please select a seed to buy");
-            alert.showAndWait();
-        }
-    }
-
-    public void showFruitTreeInfo(ActionEvent e) {
-        if (listFruitTree.getSelectionModel().getSelectedItem() != null) {
-            String selectedSeed = listFruitTree.getSelectionModel().getSelectedItem();
-            for (Seeds seed : seedStore.getFruitTreeSale()) {
-                if (seed.getSeedName().equals(selectedSeed)) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setWidth(500);
-                    alert.setHeight(500);
-                    alert.setTitle("Seed Information");
-                    alert.setHeaderText("Seed Name: " + seed.getSeedName());
-                    alert.setContentText(seed.getSeedInfo());
-                    alert.showAndWait();
-                }
-            }
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("No seed selected");
-            alert.setContentText("Please select a seed to view information");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setWidth(500);
+            alert.setHeight(500);
+            alert.setTitle("No seed selected");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a seed to view information.");
             alert.showAndWait();
         }
     }

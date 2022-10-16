@@ -160,8 +160,6 @@ public class Seeds {
 
     public double getXpYield() {return xpYield;}
 
-    public int getSeedStatus() {return isCurrentlyPlanted;}
-
     public int getSeedWithered() {return seedWithered;}
 
     public void setSeedStatus (int status) {isCurrentlyPlanted = status;}

@@ -19,7 +19,6 @@ public class MyFarmCLI{
         player = new Farmer("Zach");
         playerLot = new FarmLot("Wow");
         seedStore = new Store();
-
     }
 
     public int playerChoice(String options, int numOptions) {

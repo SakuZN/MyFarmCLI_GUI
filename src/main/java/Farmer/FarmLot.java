@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 
 public class FarmLot {
 
-    /**
+    /*
      * 0 - Unplowed
      * 1 - Plowed
      * 2 - Planted
@@ -23,9 +23,7 @@ public class FarmLot {
 
     private ArrayList<Seeds> seeds = new ArrayList<>();
     private ArrayList<Seeds> plantedSeeds = new ArrayList<>();
-
     private ArrayList<Seeds> harvestSeeds = new ArrayList<>();
-    private int harvestSeedsCount;
     private ArrayList<Tools> tools = new ArrayList<>();
     private String lotName;
 
@@ -50,20 +48,9 @@ public class FarmLot {
         tools.add(new Shovel());
     }
 
-    //Used to pass instance of class when needed
-    public FarmLot(FarmLot farmLot) {
-        this.lotName = farmLot.getLotName();
-        this.lotTiles = farmLot.getLotTiles();
-        this.seeds = farmLot.getSeeds();
-        this.plantedSeeds = farmLot.getPlantedSeeds();
-        this.harvestSeeds = farmLot.getHarvestSeeds();
-        this.tools = farmLot.getTools();
-    }
-
 
     //Add bought seed to current inventory
     public void increaseSeed (Seeds seed, String farmerType) {seeds.add(new Seeds(seed, farmerType));}
-    public void decreaseSeed(Seeds seed) {seeds.remove(seed);}
     public String getSeedsString(String seedString, ArrayList<Seeds> seeds) {
         int index = 0;
         StringBuilder seedStringBuilder = new StringBuilder(seedString);
@@ -105,18 +92,6 @@ public class FarmLot {
         return -1;
     }
 
-    private String getLotName() {return lotName;}
-
-    public int getHarvestIndex (ArrayList<Seeds> plantedSeeds) {
-        int index = 0;
-
-        for (Seeds seed: plantedSeeds) {
-            if (seed.canHarvestseed())
-                return index;
-            index++;
-        }
-        return -1;
-    }
     Predicate<Seeds> canHarvest = Seeds::canHarvestseed;
 
     /**
@@ -180,7 +155,7 @@ public class FarmLot {
         int noOfAliveTiles = 0;
         for (int [] rows : lotTiles)
             for (int cols : rows )
-                if (cols == 2)
+                if (cols == 0 || cols == 1 || cols == 2)
                     noOfAliveTiles++;
         return noOfAliveTiles == 0;
     }

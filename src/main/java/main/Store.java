@@ -9,6 +9,7 @@ public class Store {
     private ArrayList<Seeds> flowerSale = new ArrayList<>();
     private ArrayList<Seeds> fruitTreeSale = new ArrayList<>();
 
+    private ArrayList<Seeds> allForSale = new ArrayList<>();
     public Store() {
 
         rootCropSale.add(new Turnip());
@@ -19,6 +20,9 @@ public class Store {
         flowerSale.add(new Sunflower());
         fruitTreeSale.add(new Mango());
         fruitTreeSale.add(new Apple());
+        allForSale.addAll(rootCropSale);
+        allForSale.addAll(flowerSale);
+        allForSale.addAll(fruitTreeSale);
 
     }
 
@@ -27,6 +31,7 @@ public class Store {
     public ArrayList<Seeds> getFlowerSale() {return flowerSale;}
 
     public ArrayList<Seeds> getFruitTreeSale() {return fruitTreeSale;}
+    public ArrayList<Seeds> getAllForSale() {return allForSale;}
 
     //public Seeds buySeed (int index) { return seedSale.get(index);}
 }

@@ -3,7 +3,6 @@ package Farmer;
 public class Farmer {
 
     private String name;
-    private int seeds;
     private double objectCoin;
     private int lvl;
     private double xp;
@@ -17,7 +16,6 @@ public class Farmer {
     public Farmer(String name){
         this.name = name;
         farmerType = FARMERTYPE[0];
-        seeds = 0;
         objectCoin = 100;
         lvl = 0;
         xp = 99;
@@ -26,7 +24,6 @@ public class Farmer {
     public Farmer(Farmer farmer) {
         this.name = farmer.name;
         this.farmerType = farmer.farmerType;
-        this.seeds = farmer.seeds;
         this.objectCoin = farmer.objectCoin;
         this.lvl = farmer.lvl;
         this.xp = farmer.xp;
@@ -36,8 +33,6 @@ public class Farmer {
     //Getter Methods
     public String getName() {return name;}
 
-    public int getSeeds() {return seeds;}
-
     public double getObjectCoin() {return objectCoin;}
 
     public int getLvl() {return lvl;}
@@ -45,14 +40,6 @@ public class Farmer {
     public double getXp() {return xp;}
 
     public String getFarmerType() {return farmerType;}
-
-    public int getDaysPassed() {return daysPassed;}
-
-    //Setter Methods
-    public void addSeeds() { seeds = seeds + 1;}
-
-    public void addObjectCoin(double value) { objectCoin = objectCoin + value;}
-    public void decreaseObjectCoin (double value) {objectCoin = objectCoin - value;}
 
     public int farmerTypeBenefit(String farmerType) {
         return switch (farmerType) {
@@ -62,7 +49,7 @@ public class Farmer {
             default -> 0;
         };
     }
-    public void setFarmerType (int index) {farmerType = FARMERTYPE[index];}
+
     public void benefitDescriptions() {
         int[] lvl = {0, 5, 10, 15};
         int[] produceBonus = {0, 1, 2, 4};
@@ -112,6 +99,15 @@ public class Farmer {
         }
         return "";
     }
+
+    public int getDaysPassed() {return daysPassed;}
+
+    //Setter Methods
+    public void addObjectCoin(double value) { objectCoin = objectCoin + value;}
+    public void decreaseObjectCoin (double value) {objectCoin = objectCoin - value;}
+
+    public void setFarmerType (int index) {farmerType = FARMERTYPE[index];}
+
     public boolean canLvlUp () {
         if ( xp - (lvl * 100) >= 100) {
             lvlUp();
