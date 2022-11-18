@@ -18,7 +18,7 @@ import main.Tools;
 import java.io.IOException;
 import java.util.Optional;
 
-public class TendFarmController extends MainClassController {
+public class TendFarmController extends ContractController {
 
     @FXML
     GridPane gridPaneLot;
@@ -57,13 +57,14 @@ public class TendFarmController extends MainClassController {
 
         for (int i = 0; i < playerLot.getLotTiles().length; i++) {
             for (int j = 0; j < playerLot.getLotTiles()[i].length; j++) {
-                gridPaneLot.add(this.button[i][j], j, i);
+                //Adds an innate coordinate for button nodes
                 this.button[i][j].setUserData(new Coord(i, j));
                 //adds an action event on button, used when tool is selected
                 this.button[i][j].setOnAction(event -> {
                     Button b = (Button) event.getSource();
                     useTool(b);
                 });
+                gridPaneLot.add(this.button[i][j], j, i);
             }
         }
         //Adds tools to the toolList
@@ -488,20 +489,11 @@ public class TendFarmController extends MainClassController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainScreen.fxml"));
         root = loader.load();
         MainClassController mainClassController = loader.getController();
-        mainClassController.setButtonFarm(player, playerLot, button);
+        mainClassController.setFarm(player, playerLot, button);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
 
     }
-
-    /*Debugging method meant to print out the coordinate of the button pressed
-    private EventHandler<ActionEvent> createTileHandler(int x, int y) {
-        return event -> tileHandler(x, y);
-    }
-    private void tileHandler (int x, int y){
-        System.out.println(String.format("Clicked tile at (%d,%d)", x, y));
-        }
-     */
 
 }

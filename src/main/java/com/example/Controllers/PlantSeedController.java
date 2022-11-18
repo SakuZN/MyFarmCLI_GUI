@@ -19,7 +19,7 @@ import main.Seeds;
 
 import java.io.IOException;
 
-public class PlantSeedController extends MainClassController {
+public class PlantSeedController extends ContractController {
 
     @FXML
     GridPane gridPaneLot;
@@ -129,7 +129,8 @@ public class PlantSeedController extends MainClassController {
                 playerLot.getSeeds().remove(listIndex);
                 //Remove seed from listview
                 seedList.getItems().remove(listIndex);
-
+                //update number of seeds owned
+                seedsOwned.setText("Seeds owned: " + playerLot.getSeeds().size());
                 //Update tooltip to show what seed has been planted on the chosen tile
                 setTooltip(button, seed.getSeedName());
 
@@ -162,7 +163,7 @@ public class PlantSeedController extends MainClassController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainScreen.fxml"));
         root = loader.load();
         MainClassController mainClassController = loader.getController();
-        mainClassController.setButtonFarm(player, playerLot, button);
+        mainClassController.setFarm(player, playerLot, button);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class RegisterStatusController extends MainClassController {
+public class RegisterStatusController extends ContractController {
 
 
     @FXML
@@ -39,7 +39,7 @@ public class RegisterStatusController extends MainClassController {
     }
 
     //Below are methods used to show the benefits and requirements of each status
-    public void registeredFarmerBenefits(ActionEvent event) throws IOException {
+    public void registeredFarmerBenefits() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setWidth(500);
         alert.setHeight(500);
@@ -49,7 +49,7 @@ public class RegisterStatusController extends MainClassController {
         alert.showAndWait();
     }
 
-    public void distinguishedFarmerBenefits(ActionEvent event) throws IOException {
+    public void distinguishedFarmerBenefits() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setWidth(500);
         alert.setHeight(500);
@@ -59,7 +59,7 @@ public class RegisterStatusController extends MainClassController {
         alert.showAndWait();
     }
 
-    public void legendaryFarmerBenefits(ActionEvent event) throws IOException {
+    public void legendaryFarmerBenefits() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setWidth(500);
         alert.setHeight(500);
@@ -70,7 +70,7 @@ public class RegisterStatusController extends MainClassController {
     }
 
     //Below are methods used to register new status, given the player meets the requirement
-    public void registerToRegisteredFarmer(ActionEvent event) throws IOException {
+    public void registerToRegisteredFarmer() {
         if (player.getLvl() >= 5 && player.getFarmerType().equals("Farmer") && player.getObjectCoin() >= 200) {
             player.setFarmerType(1);
             currentFarmerStatus.setText("Farmer status: " + player.getFarmerType());
@@ -88,7 +88,7 @@ public class RegisterStatusController extends MainClassController {
         }
     }
 
-    public void registerToDistinguishedFarmer(ActionEvent event) throws IOException {
+    public void registerToDistinguishedFarmer() {
         if (player.getLvl() >= 10 && player.getFarmerType().equals("Registered Farmer") && player.getObjectCoin() >= 300) {
             player.setFarmerType(2);
             currentFarmerStatus.setText("Farmer status: " + player.getFarmerType());
@@ -106,7 +106,7 @@ public class RegisterStatusController extends MainClassController {
         }
     }
 
-    public void registerToLegendaryFarmer(ActionEvent event) throws IOException {
+    public void registerToLegendaryFarmer() {
         if (player.getLvl() >= 15 && player.getFarmerType().equals("Distinguished Farmer") && player.getObjectCoin() >= 400) {
             player.setFarmerType(3);
             currentFarmerStatus.setText("Farmer status: " + player.getFarmerType());

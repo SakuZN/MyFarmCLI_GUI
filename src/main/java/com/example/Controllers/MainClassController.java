@@ -6,12 +6,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -19,18 +18,14 @@ import javafx.stage.Stage;
 import main.Seeds;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.Optional;
 
-public class MainClassController {
+public class MainClassController extends ContractController {
 
-    //Limit double type values into two decimal places
-    private static final DecimalFormat df = new DecimalFormat("0.00");
-    protected Stage stage;
-    protected Scene scene;
-    protected Parent root;
     @FXML
     GridPane gridPaneLot;
+    @FXML
+    SplitPane splitPane;
     @FXML
     Text farmName;
     @FXML
@@ -41,20 +36,18 @@ public class MainClassController {
     Text seedsHarvest;
     @FXML
     Text daysPassed;
-    Button[][] button = new Button[10][5];
+    private Button[][] button = new Button[10][5];
     private Farmer player;
     private FarmLot playerLot;
 
     @FXML
     private void initialize() {
-
     }
 
     //Initializes the player and playerLot
     public void setFarm(Farmer player, FarmLot playerLot) {
         this.player = player;
         this.playerLot = playerLot;
-
         //Adds text to the farmLot screen
         farmName.setText("The " + playerLot.getFarmName() + " lot");
         farmName.setTextAlignment(TextAlignment.CENTER);
@@ -68,22 +61,8 @@ public class MainClassController {
 
     }
 
-    private void buttonReinstate() {
-        for (int i = 0; i < playerLot.getLotTiles().length; i++) {
-            for (int j = 0; j < playerLot.getLotTiles()[i].length; j++) {
-
-                button[i][j] = new Button();
-                button[i][j].setPrefSize(100, 100);
-                button[i][j].setText(playerLot.getTileStatus(i, j));
-                setButtonStyle(button[i][j]);
-                setTooltip(button[i][j], playerLot.getTileStatus(i, j));
-                gridPaneLot.add(button[i][j], j, i);
-            }
-        }
-    }
-
     //Used by other scenes that modifies the playerLot
-    public void setButtonFarm(Farmer player, FarmLot playerLot, Button[][] button) {
+    public void setFarm(Farmer player, FarmLot playerLot, Button[][] button) {
         this.player = player;
         this.playerLot = playerLot;
         this.button = button;
@@ -105,41 +84,17 @@ public class MainClassController {
         }
 
     }
+    private void buttonReinstate() {
+        for (int i = 0; i < playerLot.getLotTiles().length; i++) {
+            for (int j = 0; j < playerLot.getLotTiles()[i].length; j++) {
 
-    //Sets the tooltip for each button, shows relevant information about the tile
-    public void setTooltip(Button button, String text) {
-        Tooltip tooltip = new Tooltip();
-        switch (text) {
-            case "Unplowed" -> tooltip.setText("This tile is unplowed.\nUse plow tool to make the tile plowed.");
-            case "Plowed" -> tooltip.setText("This tile is plowed.\nIt is possible to plant seeds.");
-            case "Withered" -> tooltip.setText("This tile is withered.\nUse shovel tool to remove it");
-            case "Rock" -> tooltip.setText("This tile contains rock.\nUse Pickaxe tool to remove rock.");
-            default -> tooltip.setText(text + " is planted here." + "\nTake good care of it!");
-        }
-        tooltip.setStyle("-fx-font: normal bold 4 Langdon; "
-                + "-fx-font-size: 12;"
-                + "-fx-base: #AE3522; "
-                + "-fx-text-fill: orange;");
-        tooltip.setPrefSize(150, 100);
-        tooltip.setWrapText(true);
-        tooltip.setShowDelay(javafx.util.Duration.seconds(0.5));
-        button.setTooltip(tooltip);
-    }
-
-    public void setButtonStyle(Button button) {
-        String Val = button.getText();
-        //Change text of button depending on tile status
-        switch (Val) {
-            case "Unplowed" -> button.setStyle("-fx-border-color: green;"
-                    + "-fx-text-fill: #fa8072;" + "-fx-font: normal bold 12 Langdon;");
-            case "Plowed" -> button.setStyle("-fx-border-color: green;"
-                    + "-fx-text-fill: #ffa500;" + "-fx-font: normal bold 12 Langdon;");
-            case "Planted" -> button.setStyle("-fx-border-color: green;"
-                    + "-fx-text-fill: #228C22;" + "-fx-font: normal bold 12 Langdon;");
-            case "Withered" -> button.setStyle("-fx-border-color: green;"
-                    + "-fx-text-fill: #DC143C;" + "-fx-font: normal bold 12 Langdon;");
-            case "Rock" -> button.setStyle("-fx-border-color: green;"
-                    + "-fx-text-fill: #a48c1d;" + "-fx-font: normal bold 12 Langdon;");
+                button[i][j] = new Button();
+                button[i][j].setPrefSize(100, 100);
+                button[i][j].setText(playerLot.getTileStatus(i, j));
+                setButtonStyle(button[i][j]);
+                setTooltip(button[i][j], playerLot.getTileStatus(i, j));
+                gridPaneLot.add(button[i][j], j, i);
+            }
         }
     }
 
@@ -299,7 +254,7 @@ public class MainClassController {
                             "\n\ngained " + harvestSeed.getXpYield() + " exp!");
                     alert2.showAndWait();
 
-                    //Update player xp and coin amount
+                    //Update player xp and coin amoount
                     player.addxp(harvestSeed.getXpYield());
                     player.addObjectCoin(harvestSeed.finalHarvestPrice(player.getFarmerType(), harvestSeed.getSeedType()));
                     //Alert info if player levels up
@@ -317,7 +272,7 @@ public class MainClassController {
                     //update scene text
                     objectCoin.setText("Coins: " + df.format(player.getObjectCoin()));
                     plantedSeeds.setText("Planted seeds: " + playerLot.getPlantedSeeds().size());
-
+                    seedsHarvest.setText("Harvest seeds: " + playerLot.getHarvestSeeds().size());
                     //update button information
                     button[harvestSeed.getxCoord()][harvestSeed.getyCoord()] = new Button();
                     //set width and height of button
@@ -369,25 +324,6 @@ public class MainClassController {
     public boolean checkFailCondition() {
         return (playerLot.getSeeds().size() == 0 && playerLot.getPlantedSeeds().size() == 0 &&
                 player.getObjectCoin() <= 2) && playerLot.lotWithered();
-    }
-
-    //Stores the coordinate of the button pressed in the gridPane
-    public static class Coord {
-        private final int i;
-        private final int j;
-
-        public Coord(int i, int j) {
-            this.i = i;
-            this.j = j;
-        }
-
-        public int getI() {
-            return i;
-        }
-
-        public int getJ() {
-            return j;
-        }
     }
 }
 

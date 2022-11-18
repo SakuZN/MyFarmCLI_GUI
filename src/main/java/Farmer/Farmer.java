@@ -2,7 +2,7 @@ package Farmer;
 
 public class Farmer {
 
-    private String name;
+    private final String NAME;
     private double objectCoin;
     private int lvl;
     private double xp;
@@ -13,8 +13,8 @@ public class Farmer {
     private String farmerType;
 
 
-    public Farmer(String name){
-        this.name = name;
+    public Farmer(String NAME){
+        this.NAME = NAME;
         farmerType = FARMERTYPE[0];
         objectCoin = 100;
         lvl = 0;
@@ -22,7 +22,7 @@ public class Farmer {
     }
 
     public Farmer(Farmer farmer) {
-        this.name = farmer.name;
+        this.NAME = farmer.NAME;
         this.farmerType = farmer.farmerType;
         this.objectCoin = farmer.objectCoin;
         this.lvl = farmer.lvl;
@@ -31,7 +31,7 @@ public class Farmer {
     }
 
     //Getter Methods
-    public String getName() {return name;}
+    public String getName() {return NAME;}
 
     public double getObjectCoin() {return objectCoin;}
 

@@ -12,10 +12,6 @@ import java.io.IOException;
 
 public class GameOverController {
 
-    private Parent root;
-    private Stage stage;
-    private Scene scene;
-
     public void initialize() {
     }
 
@@ -29,10 +25,10 @@ public class GameOverController {
         alert.showAndWait();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/setupScreen.fxml"));
-        root = loader.load();
+        Parent root = loader.load();
         //root = FXMLLoader.load(getClass().getResource("Scene2.fxml"));
-        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }

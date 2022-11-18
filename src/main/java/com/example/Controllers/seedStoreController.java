@@ -18,7 +18,7 @@ import main.Store;
 
 import java.io.IOException;
 
-public class seedStoreController extends MainClassController {
+public class seedStoreController extends ContractController {
 
     @FXML
     private TableView<Seeds> seedView;
@@ -56,8 +56,9 @@ public class seedStoreController extends MainClassController {
         seedView.setItems(getSeeds());
 
         //change table view font size
-        seedView.setStyle("-fx-font-size: 16px;");
-        seedView.setFixedCellSize(32);
+        seedView.setStyle("-fx-font-size: 18px;");
+        //prevent table view scrolling
+        seedView.setFixedCellSize(31.5);
     }
 
     //Method to get all seeds from the store
@@ -69,7 +70,7 @@ public class seedStoreController extends MainClassController {
     }
 
     //Buy selected seed from the store
-    public void buySeed(ActionEvent event) {
+    public void buySeed() {
         Seeds selectedSeed = seedView.getSelectionModel().getSelectedItem();
         //Store farmer type benefit discount
         int farmerTypeBenefit = player.farmerTypeBenefit(player.getFarmerType());
@@ -99,23 +100,21 @@ public class seedStoreController extends MainClassController {
         }
     }
     //Show selected seed information
-    public void seedInformation (ActionEvent event) {
+    public void seedInformation () {
         Seeds selectedSeed = seedView.getSelectionModel().getSelectedItem();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         if (selectedSeed != null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle(selectedSeed.getSeedName());
             alert.setHeaderText(null);
             alert.setContentText(selectedSeed.getSeedInfo());
-            alert.showAndWait();
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setWidth(500);
             alert.setHeight(500);
             alert.setTitle("No seed selected");
             alert.setHeaderText(null);
             alert.setContentText("Please select a seed to view information.");
-            alert.showAndWait();
         }
+        alert.showAndWait();
     }
 
     //Handles the back button

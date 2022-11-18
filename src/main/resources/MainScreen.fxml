@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="grid" prefHeight="504.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controllers.MainClassController">
    <children>
-      <SplitPane dividerPositions="0.29965947786606123" prefHeight="504.0" prefWidth="706.0">
+      <SplitPane fx:id="splitPane" dividerPositions="0.29965947786606123" prefHeight="504.0" prefWidth="706.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="502.0" prefWidth="202.0">
                <children>

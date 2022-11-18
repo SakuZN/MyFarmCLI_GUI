@@ -7,82 +7,83 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controllers.RegisterStatusController">
+<AnchorPane prefHeight="504.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controllers.RegisterStatusController">
    <children>
-      <Text fx:id="objectCoin" layoutX="31.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="182.5810546875">
+      <Text fx:id="objectCoin" layoutX="28.0" layoutY="483.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="182.5810546875">
          <font>
-            <Font name="Gabriola" size="34.0" />
+            <Font name="Gabriola" size="40.0" />
          </font>
       </Text>
-      <Label layoutX="212.0" layoutY="110.0" text="Registered Farmer">
+      <Label layoutX="219.0" layoutY="128.0" text="Registered Farmer">
          <font>
-            <Font name="Gabriola" size="39.0" />
+            <Font name="Gabriola" size="45.0" />
          </font>
       </Label>
-      <Label layoutX="201.0" layoutY="193.0" text="Distinguished Farmer">
+      <Label layoutX="195.0" layoutY="231.0" text="Distinguished Farmer">
          <font>
-            <Font name="Gabriola" size="39.0" />
+            <Font name="Gabriola" size="45.0" />
          </font>
       </Label>
-      <Label layoutX="210.0" layoutY="275.0" text="Legendary Farmer">
+      <Label layoutX="215.0" layoutY="335.0" prefHeight="54.0" prefWidth="263.0" text="Legendary Farmer" textAlignment="JUSTIFY">
          <font>
-            <Font name="Gabriola" size="39.0" />
+            <Font name="Gabriola" size="45.0" />
          </font>
       </Label>
-      <Line endX="179.5" endY="31.0" layoutX="59.0" layoutY="369.0" startX="179.5" startY="-33.5" />
-      <Line endX="538.5" layoutX="105.0" layoutY="175.0" startX="-105.0" />
-      <Line endX="527.5" layoutX="115.0" layoutY="258.0" startX="-115.0" />
-      <Text layoutX="144.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FARMER STATUS" wrappingWidth="399.1806640625">
+      <Line endX="179.50001525878906" endY="44.39288330078125" layoutX="59.0" layoutY="470.0" startX="179.50001525878906" startY="-52.5" />
+      <Line endX="608.8999633789062" layoutX="105.0" layoutY="208.0" startX="-105.0" />
+      <Line endX="593.0928955078125" layoutX="117.0" layoutY="307.0" startX="-115.0" />
+      <Text layoutX="159.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FARMER STATUS" wrappingWidth="399.1806640625">
          <font>
-            <Font name="Mistral" size="64.0" />
+            <Font name="Mistral" size="70.0" />
          </font>
       </Text>
-      <Button layoutX="512.0" layoutY="346.0" mnemonicParsing="false" onAction="#backButton" prefHeight="49.0" prefWidth="104.0" text="Go Back">
+      <Button layoutX="588.0" layoutY="434.0" mnemonicParsing="false" onAction="#backButton" prefHeight="64.0" prefWidth="112.0" text="Go Back">
          <font>
             <Font name="Gabriola" size="22.0" />
          </font>
       </Button>
-      <Line endX="513.0999755859375" layoutX="132.0" layoutY="336.0" startX="-132.0" />
-      <Line endX="524.2999267578125" layoutX="120.0" layoutY="86.0" startX="-120.0" />
-      <Button fx:id="buyButton1" layoutX="10.0" layoutY="102.0" mnemonicParsing="false" onAction="#registeredFarmerBenefits" prefHeight="64.0" prefWidth="176.0" text="Benefits &amp; Requirements">
+      <Line endX="577.0999755859375" layoutX="136.0" layoutY="417.0" startX="-132.0" />
+      <Line endX="586.0" endY="-1.52587890625E-5" layoutX="120.0" layoutY="104.0" startX="-120.0" />
+      <Button fx:id="buyButton1" layoutX="6.0" layoutY="123.0" mnemonicParsing="false" onAction="#registeredFarmerBenefits" prefHeight="64.0" prefWidth="176.0" text="Benefits &amp; Requirements">
          <font>
             <Font name="Gabriola" size="18.0" />
          </font>
       </Button>
-      <Text fx:id="currentFarmerStatus" layoutX="253.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="182.5810546875">
+      <Text fx:id="currentFarmerStatus" layoutX="253.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="254.39999999999998">
          <font>
-            <Font name="Gabriola" size="25.0" />
+            <Font name="Gabriola" size="31.0" />
          </font>
       </Text>
-      <Button fx:id="buyButton2" layoutX="491.0" layoutY="103.0" mnemonicParsing="false" onAction="#registerToRegisteredFarmer" prefHeight="64.0" prefWidth="112.0" text="Register">
+      <Button fx:id="buyButton2" layoutX="512.0" layoutY="123.0" mnemonicParsing="false" onAction="#registerToRegisteredFarmer" prefHeight="64.0" prefWidth="162.0" text="Register">
          <font>
-            <Font name="Gabriola" size="26.0" />
+            <Font name="Gabriola" size="33.0" />
          </font>
       </Button>
-      <Button fx:id="buyButton11" layoutX="8.0" layoutY="185.0" mnemonicParsing="false" onAction="#distinguishedFarmerBenefits" prefHeight="64.0" prefWidth="176.0" text="Benefits &amp; Requirements">
+      <Button fx:id="buyButton11" layoutX="6.0" layoutY="226.0" mnemonicParsing="false" onAction="#distinguishedFarmerBenefits" prefHeight="64.0" prefWidth="176.0" text="Benefits &amp; Requirements">
          <font>
             <Font name="Gabriola" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="buyButton111" layoutX="8.0" layoutY="267.0" mnemonicParsing="false" onAction="#legendaryFarmerBenefits" prefHeight="64.0" prefWidth="176.0" text="Benefits &amp; Requirements">
+      <Button fx:id="buyButton111" layoutX="8.0" layoutY="335.0" mnemonicParsing="false" onAction="#legendaryFarmerBenefits" prefHeight="64.0" prefWidth="176.0" text="Benefits &amp; Requirements">
          <font>
             <Font name="Gabriola" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="buyButton21" layoutX="491.0" layoutY="186.0" mnemonicParsing="false" onAction="#registerToDistinguishedFarmer" prefHeight="64.0" prefWidth="112.0" text="Register">
+      <Button fx:id="buyButton21" layoutX="511.0" layoutY="226.0" mnemonicParsing="false" onAction="#registerToDistinguishedFarmer" prefHeight="64.0" prefWidth="162.0" text="Register">
          <font>
-            <Font name="Gabriola" size="26.0" />
+            <Font name="Gabriola" size="33.0" />
          </font>
       </Button>
-      <Button fx:id="buyButton22" layoutX="491.0" layoutY="267.0" mnemonicParsing="false" onAction="#registerToLegendaryFarmer" prefHeight="64.0" prefWidth="112.0" text="Register">
+      <Button fx:id="buyButton22" layoutX="511.0" layoutY="335.0" mnemonicParsing="false" onAction="#registerToLegendaryFarmer" prefHeight="64.0" prefWidth="162.0" text="Register">
          <font>
-            <Font name="Gabriola" size="26.0" />
+            <Font name="Gabriola" size="33.0" />
          </font>
       </Button>
-      <Text fx:id="farmerLvl" layoutX="253.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="182.5810546875">
+      <Text fx:id="farmerLvl" layoutX="253.0" layoutY="496.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="182.5810546875">
          <font>
-            <Font name="Gabriola" size="25.0" />
+            <Font name="Gabriola" size="30.0" />
          </font>
       </Text>
+      <Line endX="179.5" endY="45.39996337890625" layoutX="388.0" layoutY="470.0" startX="179.50001525878906" startY="-52.5" />
    </children>
 </AnchorPane>
