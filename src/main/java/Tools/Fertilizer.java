@@ -4,8 +4,16 @@ import main.Tools;
 
 import java.util.Objects;
 
+/**
+ * This class represents the Fertilizer tool
+ * Extends the Tools class
+ */
 public class Fertilizer extends Tools {
 
+    /**
+     * Constructor for Fertilizer class
+     * Calls the super constructor to set all the fertilizer tool properties
+     */
     public Fertilizer () {
         super("Fertilizer", 10, 4);
     }
@@ -19,8 +27,12 @@ public class Fertilizer extends Tools {
         return Objects.equals(tileStatus, "Planted");
     }
 
+    /**
+     * Gets the description of the tool
+     * @return the description of the tool
+     */
     @Override
-    public String toolDescription() {
+    public String getToolDescription() {
         String description = "Adds to the total number of times a tile with planted seed has been applied with " +
                 "fertilizer.\n"
                 + "Can only be performed on a plowed tile with planted seed.";

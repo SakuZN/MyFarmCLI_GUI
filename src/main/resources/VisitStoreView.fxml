@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controllers.seedStoreController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SceneControllers.SeedStoreController">
    <children>
       <Text fx:id="objectCoin" layoutX="14.0" layoutY="457.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coin" wrappingWidth="222.5810546875">
          <font>
@@ -21,7 +21,7 @@
             <Font name="Mistral" size="64.0" />
          </font>
       </Text>
-      <Button layoutX="563.0" layoutY="435.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="58.0" prefWidth="114.0" text="Go Back">
+      <Button layoutX="563.0" layoutY="435.0" mnemonicParsing="false" onAction="#backButton" prefHeight="58.0" prefWidth="114.0" text="Go Back">
          <font>
             <Font name="Gabriola" size="28.0" />
          </font>

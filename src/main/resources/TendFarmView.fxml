@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="grid" prefHeight="504.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controllers.PlantSeedController">
+<AnchorPane fx:id="grid" prefHeight="504.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SceneControllers.TendFarmController">
    <children>
       <SplitPane dividerPositions="0.29965947786606123" prefHeight="504.0" prefWidth="706.0">
         <items>
@@ -28,13 +28,13 @@
                         </Button>
                      </children>
                   </VBox>
-                  <Text fx:id="objectCoin" layoutX="14.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="196.0">
+                  <Text fx:id="objectCoin" layoutX="14.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Object Coin" wrappingWidth="196.0">
                      <font>
                         <Font name="Gabriola" size="30.0" />
                      </font>
                   </Text>
-                  <ListView fx:id="seedList" layoutX="4.0" layoutY="142.0" prefHeight="262.0" prefWidth="200.0" />
-                  <Button layoutX="9.0" layoutY="412.0" mnemonicParsing="false" onAction="#seedInformation" prefHeight="60.0" prefWidth="187.0" text="View Seed Info">
+                  <ListView fx:id="toolList" layoutX="4.0" layoutY="142.0" prefHeight="262.0" prefWidth="200.0" />
+                  <Button layoutX="10.0" layoutY="421.0" mnemonicParsing="false" onAction="#showToolDescription" prefHeight="60.0" prefWidth="187.0" text="View Tool Info">
                      <font>
                         <Font name="Gabriola" size="30.0" />
                      </font>
@@ -63,17 +63,17 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                   </GridPane>
-                  <Text fx:id="farmName" layoutX="126.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+                  <Text fx:id="farmName" layoutX="126.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Farm Name">
                      <font>
                         <Font name="Gabriola" size="49.0" />
                      </font>
                   </Text>
-                  <Text fx:id="plantedSeeds" layoutX="282.0" layoutY="478.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="169.01123046875">
+                  <Text fx:id="witheredSeeds" layoutX="270.0" layoutY="478.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Withered Seeds" wrappingWidth="196.0">
                      <font>
                         <Font name="Gabriola" size="30.0" />
                      </font>
                   </Text>
-                  <Text fx:id="seedsOwned" layoutX="39.0" layoutY="478.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="169.01123046875">
+                  <Text fx:id="plantedSeeds" layoutX="39.0" layoutY="478.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Planted Seeds" wrappingWidth="196.0">
                      <font>
                         <Font name="Gabriola" size="30.0" />
                      </font>
