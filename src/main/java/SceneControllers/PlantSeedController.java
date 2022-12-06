@@ -190,6 +190,14 @@ public class PlantSeedController extends ContractController {
      */
     public void seedInformation() {
         int listIndex = seedList.getSelectionModel().getSelectedIndex();
+        if (listIndex == -1) {
+            showMsgInfo("Error",
+                    "Error",
+                    "No seed selected",
+                    "Please select a seed to view information");
+            return;
+        }
+
         Seeds selectedSeed = playerLot.getSeeds().get(listIndex);
         showMsgInfo("Information",
                 selectedSeed.getSeedName(),

@@ -262,6 +262,7 @@ public class SetupScreenController implements Initializable {
         //scan file character by character per line and store in 2D array
         int row = 0;
         char[][] lotTilesTemp = new char[10][5];
+        int xCount = 0;
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
@@ -275,10 +276,23 @@ public class SetupScreenController implements Initializable {
                 scanner.close();
                 return;
             }
-            for (int col = 0; col < line.length(); col++)
+            for (int col = 0; col < line.length(); col++) {
                 lotTilesTemp[row][col] = line.charAt(col);
-
+                //Counts the number of x's in the file for validation later
+                if (lotTilesTemp[row][col] == 'x') {
+                    xCount++;
+                }
+            }
             row++;
+        }
+        //final check to see if lot tiles contain at least 10 x and at most, 30 x
+        if (xCount < 10 || xCount > 30) {
+            ContractController.showMsgInfo("Error",
+                    "Error",
+                    "Invalid lot tile generation",
+                    "Please make sure there are at least 10 'x' and at most 30 'x'");
+            scanner.close();
+            return;
         }
 
         //copy temp array to lotTiles
